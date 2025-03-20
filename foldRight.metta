@@ -1,4 +1,4 @@
-; 1 - fold-right -- folds an expression from right to left using a function 
+; fold-right -- folds an expression from right to left using a function 
 ;E.g:   -- (fold-right add (1 2 3 4)) -> 10
         -- (fold-right and (True False False)) -> False
 
