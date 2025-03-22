@@ -1,6 +1,6 @@
 ;fold-left -- folds an expression from left to right using a function 
 
-; For test case purpose , definition for logical AND  operator
+; For test case purpose
 (= (& True True) True)
 (= (& True False) False)
 (= (& False True) False)

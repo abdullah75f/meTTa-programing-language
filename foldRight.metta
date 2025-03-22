@@ -2,7 +2,7 @@
 ;E.g:   -- (fold-right add (1 2 3 4)) -> 10
         -- (fold-right and (True False False)) -> False
 
-; For test case purpose , definition for logical AND  operator
+; For test case purpose
 (= (& True True) True)
 (= (& True False) False)
 (= (& False True) False)
@@ -11,8 +11,9 @@
 
 ; Base case: empty list
 (= (fold-right - ()) 0)
-(= (fold-left $operation (:: $x ())) $x)
 (= (fold-right & ()) True)  ; Identity for logical AND
+; list with one element
+(= (fold-left $operation (:: $x ())) $x)
 
 ; Test case with -
 !(fold-right - ())
