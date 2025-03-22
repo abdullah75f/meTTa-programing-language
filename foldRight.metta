@@ -10,10 +10,12 @@
 
 
 ; Base case: empty list
-(= (fold-right $operation ()) 0)
+(= (fold-right - ()) 0)
+(= (fold-left $operation (:: $x ())) $x)
+(= (fold-right & ()) True)  ; Identity for logical AND
 
-; Test case with +
-!(fold-right + ())
+; Test case with -
+!(fold-right - ())
 
 ; Recursive case: non-empty list
 (= (fold-right $operation (:: $x $xs)) 
@@ -21,8 +23,8 @@
         
 
 ; Test case with +
-!(fold-right + (:: 1 (:: 2 (:: 3 (:: 4 (:: 8 (:: 9 ())))))))
-;!(fold-right (& (:: True (:: False (:: False ()))) True))
+!(fold-right - (:: 1 (:: 2 (:: 3 (:: 4 (:: 8 (:: 9 ())))))))
+!(fold-right & (:: True (:: False (:: False ()))))
 
 
 
