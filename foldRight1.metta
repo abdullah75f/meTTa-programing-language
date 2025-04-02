@@ -9,4 +9,6 @@
     ($operation (car-atom $xs) (foldRight $operation (cdr-atom $xs)))
 )
 
-! (foldRight / (1 2 3 4))
+! (foldRight + (1 2 3 4))
+! (foldRight - (1 2 3 4))
+! (foldRight * (1 2 3 4))
