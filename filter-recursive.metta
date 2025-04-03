@@ -2,45 +2,42 @@
 ;        -- the predicate, given as a function input, could be any thing like 
 ;        (filter isEven (1 2 3 4 5)) -> (2 4)
 
-(: filter isEven (-> Expression Expression))
-(= (filter isEven $xs)
-    (if (== $xs ())
-        () ; Base case
+(: isEven (-> Number Bool))
+(=(isEven $x) (==(% $x 2) 0))
 
-        (let* (
-                ($head (car-atom $xs))
-                ($tail (cdr-atom $xs))
-                ($filtered-tail (filter isEven $tail))
-               )
-          (
-            if (== (% $head 2) 0)
-              (cons-atom $head $filtered-tail)
-              $filtered-tail
-          )
-        )
-    )
+(: isOdd (-> Number Bool))
+(=(isOdd $x) (==  (% $x 2) 1 ))
+
+(: filter (-> (-> Number Bool) Expression expression))
+
+(=(filter $predicate $expression)
+  (if (== $expression ())
+      () ; Base case when empty list
+      (
+        let* (
+                ($head (car-atom $expression))
+                ($tail (cdr-atom $expression))
+                ($filter-recurssion (filter $predicate $tail))
+              )
+              (
+                if($predicate $head)
+                (cons-atom $head $filter-recurssion)
+                $filter-recurssion
+              )
+      )
+  )
 )
 
+; --- Test Cases ---
 
-! (filter isEven (1 2 3 4 5 6 7 8 9 10)) ; -> (2 4)
+; Test with isEven predicate
+! (filter isEven (1 2 3 4 5 6 7 8 9 10))
 
-
-;filter  -- filter contents of an expression based on a predicate
-;        -- the predicate, given as a function input, could be any thing like 
-;        (filter isEven (1 2 3 4 5)) -> (2 4)
-
-;(= (filter isEven $xs)
-   ; (
-    ;    if (== $xs ())
-      ;      ()
-     ;       (if (== (% (car-atom $xs) 2) 0 )
-       ;         (cons-atom (car-atom $xs)
-        ;        (filter isEven (cdr-atom $xs))
-         ;       )
-          ;      (filter isEven (cdr-atom $xs))
-           ; )
-    ;)
-;)
+; Test with isOdd predicate
+! (filter isOdd (1 2 3 4 5 6 7 8 9 10))
 
 
-;!  (filter isEven (1 2 3 4 5)) ;-> (2 4)
+
+
+
+
