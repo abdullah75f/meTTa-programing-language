@@ -5,7 +5,7 @@
 (= (half $x) (/ $x 2))
 (= (multiply $y) (* $y 2)) 
 (= (map-nd $operation $expression)
-   ($operation (superpose $expression)) ; Apply operation to the non-deterministic elements
+   ($operation (superpose $expression)) 
 )
 
 !(map-nd half (10))
