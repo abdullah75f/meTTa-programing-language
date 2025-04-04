@@ -28,7 +28,7 @@
   )
 )
 
-; --- Test Cases ---
+; Test Cases
 
 ; Test with isEven predicate
 ! (filter isEven (1 2 3 4 5 6 7 8 9 10))
