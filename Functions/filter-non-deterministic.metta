@@ -12,6 +12,6 @@
              $x                 
              Empty))))           
 
-; --- Test Cases ---
+;  Test Cases 
 ! (filter-nd isEven (1 2 3 4 5 6 7 8 9 10 )) 
 ! (filter-nd isOdd (1 2 3 4 5 6 7 8 9 10))   
