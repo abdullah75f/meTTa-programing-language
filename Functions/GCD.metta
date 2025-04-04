@@ -4,7 +4,7 @@
           $a
           (gcd $b (% $a $b))))
 
-   ; Test the GCD function
-   ! (gcd 56 48)
+; Test the GCD function
+! (gcd 56 48)
 
 
