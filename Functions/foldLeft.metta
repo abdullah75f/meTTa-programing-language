@@ -12,6 +12,7 @@
 (= (fold-left $operation (:: $x (:: $y $xs))) 
     (fold-left $operation (:: ($operation $x $y) $xs)))
 
+
 !(fold-left - ())
 !(fold-left - (:: 1 (:: 2 (:: 3 (:: 4 (:: 8 (:: 9 ())))))))
 !(fold-left & (:: True (:: False (:: False ()))))
