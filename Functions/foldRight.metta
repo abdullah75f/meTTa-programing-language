@@ -22,7 +22,7 @@
 (= (fold-right $operation (:: $x $xs)) 
     ($operation $x (fold-right $operation $xs)))
         
-
+ 
 ; Test case with +
 !(fold-right - (:: 1 (:: 2 (:: 3 (:: 4 (:: 8 (:: 9 ())))))))
 !(fold-right & (:: True (:: False (:: False ()))))
