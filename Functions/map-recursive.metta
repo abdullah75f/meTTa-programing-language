@@ -4,20 +4,21 @@
 (= (half $x) (/ $x 2))
 ; !(half 2)
 
-(: map (-> (-> A B) Expression Expression))
-
-(= (map $function $expression)
-   (if (== $expression ()) ; Correct 'if' call
-       () ; Base Case
-       ; Recursive Step - Correct 'cons-atom' call
-       (cons-atom
-          ($function (car-atom $expression))
-          (map $function (cdr-atom $expression))
-       )
-   )
+(= (map $func $expr)
+    (if (== $expr ())
+        ()
+        (let* (
+            ($head (car-atom $expr))
+            ($tail (cdr-atom $expr))
+            ($recursive-head ($func $head))
+            ($recursive-tail (map $func $tail))
+            )
+            (cons-atom $recursive-head $recursive-tail)
+        )
+    )   
 )
 
-; Test map
+; Test case
 !(map half (2 4 6))
 !(map half ())
 !(map half (10))
