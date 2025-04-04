@@ -1,5 +1,5 @@
 ; MeTTa pattern matching Problems
-; Insert knowledge into the MeTTa Knowledge Graph (Atomspace)
+(Atomspace)
 (Male Abebe)
 (Female Abebech)
 (Male Kebede)
