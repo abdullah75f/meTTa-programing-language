@@ -12,5 +12,5 @@
 !(map-nd multiply (10))
 !(map-nd half (2 4 6))  
 !(map-nd multiply (2 4 6))  
-!(map-nd half ())
+!(map-nd half ()) 
 
