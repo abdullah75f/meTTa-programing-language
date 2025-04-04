@@ -8,9 +8,7 @@
                 (isPowerOfFour (/ $n 4))
                 (return False)
 
-            
             )
-
         )
     )
 )
