@@ -22,3 +22,11 @@
 !(map half (2 4 6))
 !(map half ())
 !(map half (10))
+
+; a possible implementtion without the let binding
+;(= (map $func $expr)
+;    (if (== $expr ())
+;        ()
+;        (cons-atom ($func (car-atom $expr)) ((map $func (cdr-atom $expr))))
+;    )   
+;)
