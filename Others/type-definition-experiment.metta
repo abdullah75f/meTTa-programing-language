@@ -9,7 +9,7 @@
 ;!(get-type(List 4)) ; List 4
 
 (: Nil (List $a))
-;!(get-type Nil)
+!(get-type Nil)
 
 (: Cons ( -> $a (List $a) (List $a)))
 ;!(get-type (Cons 4 Nil))
@@ -46,3 +46,25 @@
 
 
 ;;; -----list to Expression Defintion-----
+
+(:listToExpression (-> (List $a) Expression))
+
+(= (listToExpression Nil) ())
+
+( = (listToExpression (Cons $x $xs)) (
+    let $c (listToExpression $xs) (cons-atom $x $c)
+))
+
+! (listToExpression (Cons 0 (Cons 1 (Cons 2 Nil))))
+
+
+
+(: expressionToList (-> Expression (List $a)))
+
+(= (expressionToList ()) Nil)
+
+(= (expressionToList (cons-atom $x $rest))
+   (Cons $x (expressionToList $rest)))
+
+
+! (expressionToList (0 1 3))
