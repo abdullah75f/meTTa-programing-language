@@ -8,17 +8,13 @@
 (: ex2L (-> Expression (List $a)))
 (: exp2Tree (-> $t (Tree $a)))
 
-
-;; CHANGE 1: Change map's type signature to a generic function mapper over expressions
-
-;; Original was: (: map (-> (-> $a (Tree $a)) Expression Expression))
 (: map (-> (-> $a (Tree $a)) Expression Expression))
 
 
 ; This creates an tree with no children, a tree with a single root
 
-(= (nodeConstructor $t)
-  (mkTree (mkNode $t) Nil))
+;(= (nodeConstructor $t)
+;  (mkTree (mkNode $t) Nil))
 
 
 (= (ex2L $exp)
@@ -32,11 +28,10 @@
 (= (map $ctor $exp)
   (if (== $exp ())
     $exp 
-    (let*
-      ((($f $t) (decons-atom $exp))
-      ($c (map $ctor $t)))
-       (let $h ($ctor $f)
-         (cons-atom $h $c))
+    (let*((($f $t) (decons-atom $exp))
+          ($c (map $ctor $t)))
+          (let $h ($ctor $f)
+          (cons-atom $h $c))
        )))
 
 
