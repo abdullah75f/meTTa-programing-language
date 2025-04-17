@@ -1,70 +1,30 @@
-; Type Constructor and Data Constructor
-(: Node (-> $a Type) )
-(: mkNode (-> $a (Node $a)))
-!(get-type(mkNode 3)) ; Node Number
+;;Adds a single knob (Symbol) to an existing
+;;boolean expression (`$expr`) using AND.
 
-(: List (-> $a Type))
-!(get-type(List 4)) ; Type
-(: Nil (List $a))
-!(get-type Nil) ; List $a#84
+;; --- Define BoolExpr Type ---
+(: True BoolExpr)
+(: False BoolExpr)
+(: NOT (-> BoolExpr BoolExpr))
+(: AND (-> BoolExpr BoolExpr BoolExpr))
+(: OR  (-> BoolExpr BoolExpr BoolExpr))
 
-(: Cons ( -> $a (List $a) (List $a)))
-!(get-type (Cons 4 Nil)) ; [(List Number)]
+;; --- Type Definition for add-knob ---
+;; It takes a BoolExpr and a Symbol (the knob name)
+;; returns a new BoolExpr.
+(: add-knob (-> BoolExpr Symbol BoolExpr))
 
-;;;;--------- Tree---------
-
-(: Tree (-> $a Type))
-;!(get-type (Tree 4))
-
-;mkTree is a constructor that builds a Tree of type $a using:
-(: mkTree (-> (Node $a) (List (Tree $a)) (Tree $a)))
-(: A Bool)
-
-;; -----construct a tree with node A-----
-
-!(get-type(mkTree (mkNode A) Nil))
-
-;;; -----construct a tree with (AND A)-----
-
-!(get-type (mkTree (mkNode AND) (Cons (mkTree( mkNode A) Nil) Nil)))
-
-;;; -----construct a tree with (AND A B)-----
-!( get-type (mkTree (mkNode AND) (Cons (mkTree (mkNode A) Nil) (Cons (mkTree (mkNode B) Nil) Nil))))
+;; --- Function Definition ---
+(= (add-knob $expr $knob-name)
+   (AND $expr $knob-name))
 
 
+;; test cases
 
-;;; -----construct a tree with (AND A B (OR A))-----
+;; Add knob 'A' to the expression '(AND X Y)'
+!(add-knob (AND X Y) A)
 
-!( get-type (mkTree (mkNode AND) (Cons (mkTree (mkNode A) Nil) (Cons (mkTree (mkNode B) Nil) (Cons (mkTree (mkNode OR) (Cons (mkTree (mkNode A) Nil)Nil)) Nill)))))
+;; Add knob 'B' to the expression '(OR P Q)'
+!(add-knob (OR P Q) B)
 
-(1 2 3) -> (Cons 1 (Cons 2 (Cons 3 Nil)))
-(Cons 1 Nil) -> (1)
-
-
-;;; -----list to Expression Defintion-----
-
-(:listToExpression (-> (List $a) Expression))
-(= (listToExpression Nil) ())
-( = (listToExpression (Cons $x $xs)) (
-    let $c (listToExpression $xs) (cons-atom $x $c)
-))
-! (listToExpression (Cons 0 (Cons 1 (Cons 2 Nil)))) ; (0 1 2)
-
-
-
-(: expressionToList (-> Expression (List $a)))
-(= (expressionToList ()) Nil)
-(= (expressionToList $expression)
-    (
-        let* (
-            (($head $tail) (decons-atom $expression))
-            ($build (expressionToList $tail))
-            )
-            (Cons $head $build)
-    )
-   )
-
-! (expressionToList (0 1 3))
-
-
-    
+;; Add knob 'K' to the expression 'A' (where 'A' is a Symbol -> BoolExpr variable)
+!(add-knob A K)
