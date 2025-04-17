@@ -60,11 +60,16 @@
 
 
 (: expressionToList (-> Expression (List $a)))
-
 (= (expressionToList ()) Nil)
-
-(= (expressionToList (cons-atom $x $rest))
-   (Cons $x (expressionToList $rest)))
-
+(= (expressionToList $expression)
+    (
+        let* (
+            (($head $tail) (decons-atom $expression))
+            ($build (expressionToList $tail))
+            )
+            (Cons $head $build)
+    )
+   )
 
 ! (expressionToList (0 1 3))
+
