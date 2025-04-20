@@ -23,8 +23,8 @@
 ; Tree: a tree reference (The exemplar)
 ; NodeId: a position poininting to current position in the tree
 
-(: knob Type)
-(: mkKnob (-> (Tree $a) NodeId knob))
+(: Knob Type)
+(: mkKnob (-> (Tree $a) NodeId Knob))
 
 ;;; Discrete knob representation
 ; Multiplicity: number of possible distinct settings a given knob can have
@@ -34,7 +34,7 @@
 (: Multiplicity Type)
 (: mkMultip (-> Number Multiplicity))
 (: DiscSpec Type)
-(:mkDiscSpec (-> Number DiscSpec))
+(: mkDiscSpec (-> Number DiscSpec))
 
 
 ;; DiscreteKnob
@@ -47,3 +47,22 @@
 )
 
 
+;; Logical Subtree knob representation
+
+(: LogicalSubtreeKnob Type)
+(: mkLSK (-> DiscreteKnob (Tree $a) LogicalSubtreeKnob))
+
+;; Checks if a DiscreteKnob is considered part of the exemplar / normal states , based on the default specifier
+;; Returns True if the default specifier is non-zero (not in normal state or exemplar), false if not the case.
+
+(: inExemplar (-> DiscreteKnob Bool))
+(= (inExemplar (mkDiscKnob $knob $multiplicity (mkDiscSpec $curr) (mkDiscSpec $def) $dis)) 
+    (not  (== $def 0)))
+
+;; Extracts the DiscreteKnob component from a LogicalSubtreeKnob (mklsk)
+
+; returns extracted DiscreteKnob
+
+(: getDiscKnob (-> LogicalSubtreeKnob DiscreteKnob))
+
+(= (getDiscKnob (mkLSK $DiscKnob $Subtree)) $DiscKnob)
